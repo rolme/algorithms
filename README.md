@@ -1,4 +1,4 @@
-algorithms
+Algorithms
 ==========
 
 Algorithm exercises in ruby
