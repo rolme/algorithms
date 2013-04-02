@@ -1,5 +1,3 @@
-#!/Users/rparnaso/.rvm/rubies/ruby-2.0.0-p0/bin/ruby
-
 # simple quick sort
 def quicksort(args)
   list = args[:list].clone
