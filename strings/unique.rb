@@ -2,9 +2,8 @@
 
 class String
   def is_unique?
-    as_array = self.split //
-    length = as_array.size
-    as_array.uniq.size == length
+    chars = self.chars
+    chars.uniq.size == chars.size
   end
 end
 

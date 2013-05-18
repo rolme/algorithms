@@ -1,18 +1,14 @@
 # check if a given string is a permutation of another. Or in other words
 # an anagram of each other.
 class String
-  def to_a
-    self.split(//)
-  end
-
   def is_permutation_of?(permutation)
     permutation_list = self.permutations
     permutation_list.include? permutation
   end
 
   def permutations
-    self_as_array = self.to_a
-    permutations_list = self_as_array.permutation
+    chars = self.chars
+    permutations_list = chars.permutation
     permutations_list.map{ |p| p.join }
   end
 
@@ -23,8 +19,8 @@ class String
   end
 
   def character_frequency
-    self_as_array = self.to_a
-    self_as_array.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+    chars = self.chars
+    chars.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
   end
 end
 
