@@ -9,6 +9,6 @@ if $0 == __FILE__
     puts n.to_s << "! = " << factorial(n).to_s
   end
 
-  n = (5..25).to_a.sample
+  n = rand(5..25)
   puts n.to_s << "! = " << factorial(n).to_s
 end
