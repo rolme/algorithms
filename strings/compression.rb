@@ -32,6 +32,8 @@ private
   end
 
   def _repeated_characters_size
+    return self.size if self.size <= 1
+
     size  = 0
     count = 0
     previous = self.chr
@@ -52,6 +54,10 @@ if $0 == __FILE__
   puts "Compress the follwing strings:"
   puts
   %w{
+    aa
+    aaa
+    abb
+    ab
     testimony
     coding
     boo
