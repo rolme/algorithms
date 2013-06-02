@@ -1,21 +1,26 @@
 require 'benchmark'
 
-Benchmark.bm do |b| 
-  b.report('#ceil') do
-    10_000_000.times {
-      devidend = rand(10..1000)
-      devisor  = rand(2..10)
+fraction = {
+  :dividend => rand(100..1000),
+  :divisor  => rand(2..10)
+}
 
-      (devidend.to_f / devisor.to_f).ceil
+Benchmark.bm do |b| 
+  b.report('Float#ceil    ') do
+    10_000_000.times {
+      (fraction[:dividend].to_f / fraction[:divisor].to_f).ceil
     }
   end
 
-  b.report('Integer Rounding') do
+  b.report('has remainder?') do
     10_000_000.times { 
-      devidend = rand(10..1000)
-      devisor  = rand(2..10)
+      (fraction[:dividend] / fraction[:divisor]) + (fraction[:dividend] % fraction[:divisor] > 0 ? 1 : 0)
+     }
+  end
 
-      (devidend + (devisor - 1)) / devisor
+  b.report('+ remainder   ') do
+    10_000_000.times { 
+      (fraction[:dividend] + (fraction[:divisor] - 1)) / fraction[:divisor]
      }
   end
 end
