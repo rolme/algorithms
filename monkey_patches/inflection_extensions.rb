@@ -2,7 +2,7 @@ module ActiveSupport
   module Inflector
     extend self
 
-    # Public: Keep existing functionality while adding converting *space* to *underscore*.
+    # Public: Keep functionality and add converting *space* to *underscore*.
     #
     # Examples
     #   "CamelCase".underscore             # => "camel_case"
