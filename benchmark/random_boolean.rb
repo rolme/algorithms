@@ -4,7 +4,7 @@ require 'benchmark'
 #
 #  [true,false].sample  #=> ruby 2.0.0
 #
-Benchmark.bm do |b|  
+Benchmark.bm(20) do |b|
   b.report('rand(2)') do
     1_000_000.times do
       rand(2) == 1 ? true : false
@@ -17,7 +17,7 @@ Benchmark.bm do |b|
     end
   end
 
-  b.report('[true,false]#sample') do
+  b.report('[true,false].sample') do
     1_000_000.times do
       [true,false].sample
     end

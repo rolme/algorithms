@@ -1,8 +1,13 @@
 require 'benchmark'
-Benchmark.bm do |b|
-  
+
+# When adding to an Array its best to use:
+#
+#  [x,y] << z  # Using ruby 2.0.0
+#
+Benchmark.bm(7) do |b|
+
   b.report('#+') do
-    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]   
+    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]
     1_000_000.times do
       basket = []
       animals.each do |a|
@@ -12,7 +17,7 @@ Benchmark.bm do |b|
   end
 
   b.report('#<<') do
-    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]    
+    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]
     1_000_000.times do      
       basket = []
       animals.each do |a|
@@ -20,10 +25,10 @@ Benchmark.bm do |b|
       end
     end
   end
-  
+
   b.report('#push') do
-    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]    
-    1_000_000.times do      
+    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]
+    1_000_000.times do
       basket = []
       animals.each do |a|
         basket.push a
@@ -32,8 +37,8 @@ Benchmark.bm do |b|
   end
 
   b.report('#pipe') do
-    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]    
-    1_000_000.times do      
+    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]
+    1_000_000.times do
       basket = []
       animals.each do |a|
         basket | [a]
@@ -42,8 +47,8 @@ Benchmark.bm do |b|
   end
 
   b.report('#concat') do
-    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]    
-    1_000_000.times do      
+    animals = ["insane walrus", "maniacal otter", "eloquent raccoon"]
+    1_000_000.times do
       basket = []
       animals.each do |a|
         basket.concat [a]
