@@ -67,4 +67,10 @@ if $0 == __FILE__
   tree.traverse(tree.root, :postorder) { |n| print n }
   print "\nfind k:     "
   tree.find('k') && puts(tree.find('k').value)
+
+  puts "Using libraries - 'set' (removes duplicates)"
+  require 'set'
+  sorted = SortedSet.new('chunkybacon'.split(''))
+  print "sorted: "
+  sorted.each { |c| print c }
 end
