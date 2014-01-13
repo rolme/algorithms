@@ -21,7 +21,7 @@ class UniqueHash
 end
 
 # Performance      - O(n)
-# Space complexity - O(1)
+# Space complexity - O(1) 256 length array
 # Assumes ACSII set with 256 characters
 class UniqueArray
   MAX_CHARS = 256
