@@ -46,9 +46,9 @@ class BinarySearchTree
   def find(value)
     node = root
     while node
-      if node.value > value
+      if value < node.value
         node = node.left
-      elsif node.value < value
+      elsif value > node.value
         node = node.right
       elsif node.value == value
         return node
