@@ -6,46 +6,65 @@ class Node
   end
 end
 
-def insert(node, value, &block)
-  return Node.new(value) unless node
+class BinarySearchTree
+  attr_reader :root
 
-  if block[value, node.value] < 0
-    node.left = insert(node.left, value, &block)
-  else
-    node.right = insert(node.right, value, &block)
+  def initialize(str)
+    str.scan(/./m) { |c| @root = insert(@root, c) {|a,b| a <=> b } }
   end
-  return node
-end
 
-def traverse(node, order=:preorder, &block)
-  return false unless node
+  def insert(node, value, &block)
+    return Node.new(value) unless node
 
-  case order
-  when :preorder
-    yield node.value
-    traverse(node.left, order, &block)
-    traverse(node.right, order, &block)
-  when :inorder
-    traverse(node.left, order, &block)
-    yield node.value
-    traverse(node.right, order, &block)
-  when :postorder
-    traverse(node.left, order, &block)
-    traverse(node.right, order, &block)
-    yield node.value
+    if block[value, node.value] < 0
+      node.left = insert(node.left, value, &block)
+    else
+      node.right = insert(node.right, value, &block)
+    end
+    return node
+  end
+
+  def traverse(node=root, order=:inorder, &block)
+    return false unless node
+
+    case order
+    when :preorder
+      yield node.value
+      traverse(node.left, order, &block)
+      traverse(node.right, order, &block)
+    when :inorder
+      traverse(node.left, order, &block)
+      yield node.value
+      traverse(node.right, order, &block)
+    when :postorder
+      traverse(node.left, order, &block)
+      traverse(node.right, order, &block)
+      yield node.value
+    end
+  end
+
+  def find(value)
+    node = root
+    while node
+      if node.value > value
+        node = node.left
+      elsif node.value < value
+        node = node.right
+      elsif node.value == value
+        return node
+      end
+    end
   end
 end
 
 if $0 == __FILE__
-  root = nil
-  # "chunkybacon".scan(/./m) { |c| root = insert(root, c) {|a,b| a <=> b } }
-  "chunkybacon".scan(/./m) do |c|
-    root = insert(root, c) {|a,b| a <=> b }
-  end
+  tree = BinarySearchTree.new "chunkybacon"
   print "pre order:  "
-  traverse(root) { |n| print n }
+  tree.traverse(tree.root, :preorder) { |n| print n }
   print "\nin order:   "
-  traverse(root, :inorder) { |n| print n }
+  tree.traverse { |n| print n }
   print "\npost order: "
-  traverse(root, :postorder) { |n| print n }
+  tree.traverse(tree.root, :postorder) { |n| print n }
+  print "\nfind k:     "
+  tree.find('k') && puts(tree.find('k').value)
 end
