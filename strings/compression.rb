@@ -1,5 +1,8 @@
 # Given a string, compression it based on repeated characters.  If the
 # compression is longer, return the original string instead.
+# 
+# Performance O(n)
+# Storage Complexity O(n)
 #
 # NOTES:
 #   Avoid using String + String as this creates a new String
@@ -7,14 +10,8 @@
 #   Use String << String to append to a String
 #   More information here: goo.gl/fPTmy
 class String
-  def compress(type=:repeated_characters)
-    self.send(type)
-  end
-
-private
-
-  def repeated_characters
-    return self if self.send(:_repeated_characters_size) >= self.size
+  def compress
+    return self if self.send(:_compressSize) >= self.size  # Prevent storage to be bigger than N
 
     compressed = ''
     count = 0
@@ -31,11 +28,12 @@ private
     compressed << previous << count.to_s
   end
 
-  def _repeated_characters_size
+private
+
+  def _compressSize
     return self.size if self.size <= 1
 
-    size  = 0
-    count = 0
+    size = count = 0
     previous = self.chr
     self.chars.each do |chr|
       if previous == chr
@@ -54,9 +52,7 @@ if $0 == __FILE__
   puts "Compress the follwing strings:"
   puts
   %w{
-    aa
     aaa
-    abb
     ab
     testimony
     coding
