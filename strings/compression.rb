@@ -1,6 +1,6 @@
-# Given a string, compression it based on repeated characters.  If the
+# Given a string, compress it based on repeated characters.  If the
 # compression is longer, return the original string instead.
-# 
+#
 # Performance O(n)
 # Storage Complexity O(n)
 #
@@ -30,7 +30,7 @@ class String
 
 private
 
-  def _compressSize
+  def compressSize
     return self.size if self.size <= 1
 
     size = count = 0
