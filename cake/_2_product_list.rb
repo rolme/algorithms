@@ -49,13 +49,16 @@ end
 # Following solution is O(2n) space and O(n) time
 def get_products_of_all_ints_except_at_index3(list)
     products = Array.new(list.count)
-    current_product = 1
     max_index = list.count-1
+
+    # Get product of numbers before index
+    current_product = 1
     (0..max_index).each do |index|
       products[index]  = current_product
       current_product *= list[index]
     end
 
+    # Get product of numbers after index
     current_product = 1
     (0..max_index).each do |index|
       products[max_index-index] *= current_product

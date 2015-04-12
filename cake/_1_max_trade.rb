@@ -14,6 +14,7 @@
 # No "shorting"—you must buy before you sell. You may not buy and sell in the
 # same time step (at least 1 minute must pass).
 
+# Mapped to a Hash but that takes up more memory.
 def max_trade1(stock_list)
   mapped_list = stock_list.map.with_index{ |v, i| {index: i, value: v} }
   mapped_list = mapped_list.sort{ |a,b| a[:value] <=> b[:value] }
@@ -88,6 +89,7 @@ def max_trade3(stock_list)
   puts "purchase at $#{stock_list[buy]} #{buy} and sell at $#{stock_list[sell]} #{sell} for profit of #{max_profit}"
 end
 
+# Think greedy! Track the minimum price, and max_profit O(n)
 def max_trade4(stock_list)
   raise "Profit requires two prices" unless stock_list.count > 2
 
