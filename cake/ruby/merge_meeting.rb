@@ -9,40 +9,31 @@
 # [(0, 1), (3, 5), (4, 8), (10, 12), (9, 10)] #=> [(0, 1), (3, 8), (9, 12)]
 
 # O(n log n) speed but does not take into account - numbers
-def condense_meeting_times1(list)
+def merge_meetings(meetings)
 
   # We need to sort incase meetings starting earlier come later.
   # This costs O(n log n) but allows us to pass array once.
-  list = list.sort{ |a,b| a[0] <=> b[0] }
+  sorted_meetings = Marshal.load(Marshal.dump(meetings.sort { |a,b| a[0] <=> b[0] }))
 
-  condensed_list = [list[0]]
-  list[1..-1].each do |meeting|
-    if condensed_list[-1][1] >= meeting[0]
-      condensed_list[-1][1] = meeting[1]
-
-      # Following code is not needed because we sorted.
-      # if meeting[1] > condensed_list[-1][1]
-      #   condensed_list[-1][1] = meeting[1]
-      # end
-
-      # if meeting[0] < condensed_list[-1][0]
-      #   condensed_list[-1][0] = meeting[0]
-      # end
+  merged_meetings = [sorted_meetings[0]]
+  sorted_meetings[1..-1].each do |meeting|
+    if merged_meetings[-1][1] >= meeting[0]
+      merged_meetings[-1][1] = [merged_meetings[-1][1], meeting[1]].max
     else
-      condensed_list << meeting
+      merged_meetings << meeting
     end
   end
-  condensed_list.each do |block|
+  merged_meetings.each do |block|
     print "(#{block[0]}, #{block[1]}) "
   end
   puts ""
 end
 
 if $0 == __FILE__
-  list = [[3, 5], [4, 8], [0, 1], [10, 12], [9, 10]]
-  list.each do |block|
+  meetings = [[0, 1], [3, 8], [4, 7], [10, 12], [9, 10]]
+  meetings.each do |block|
     print "(#{block[0]}, #{block[1]}) "
   end
   puts ""
-  puts "#{condense_meeting_times1(list)}"
+  puts "#{merge_meetings(meetings)}"
 end
