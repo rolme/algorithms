@@ -26,42 +26,80 @@
 //
 // Reverse all the characters in the entire message, giving us the correct word order but with each word backward.
 // Reverse the characters in each individual word.
-  function reverseWords(message) {
+function reverseWords(message) {
 
-    // first we reverse all the characters in the entire message
-    reverseCharacters(message, 0, message.length - 1);
-    // this gives us the right word order
-    // but with each word backward
-
-    // now we'll make the words forward again
-    // by reversing each word's characters
-
-    // we hold the index of the *start* of the current word
-    // as we look for the *end* of the current word
-    var currentWordStartIndex = 0;
-    for (var i = 0; i <= message.length; i++) {
-
-        // found the end of the current word!
-        if (i === message.length || message[i] === ' ') {
-
-            // if we haven't exhausted the string our
-            // next word's start is one character ahead
-            reverseCharacters(message, currentWordStartIndex, i - 1);
-            currentWordStartIndex = i + 1;
-        }
+  // Decode the message by reversing the words
+  reverseString(message, 0, message.length-1)
+  console.log(message.join(''))
+  start = 0
+  for (i = start; i < message.length; i++) {
+    if (message[i] === ' ') {
+      reverseString(message, start, i-1)
+      start = i + 1
     }
+
+    if (i === message.length - 1) {
+      reverseString(message, start, i)
+    }
+  }
 }
 
-function reverseCharacters(message, leftIndex, rightIndex) {
+function reverseString(str, start, end) {
+  while (start < end) {
+    [str[start], str[end]] = [str[end], str[start]]
+    start += 1
+    end -= 1
+  }
+}
 
-    // walk towards the middle, from both sides
-    while (leftIndex < rightIndex) {
+// Tests
 
-        // swap the left char and right char
-        var temp = message[leftIndex];
-        message[leftIndex] = message[rightIndex];
-        message[rightIndex] = temp;
-        leftIndex++;
-        rightIndex--;
-    }
+let desc = 'one word';
+let input = 'vault'.split('');
+reverseWords(input);
+let actual = input.join('');
+let expected = 'vault';
+assertEqual(actual, expected, desc);
+
+desc = 'two words';
+input = 'thief cake'.split('');
+reverseWords(input);
+actual = input.join('');
+expected = 'cake thief';
+assertEqual(actual, expected, desc);
+
+desc = 'three words';
+input = 'one another get'.split('');
+reverseWords(input);
+actual = input.join('');
+expected = 'get another one';
+assertEqual(actual, expected, desc);
+
+desc = 'multiple words same length';
+input = 'rat the ate cat the'.split('');
+reverseWords(input);
+actual = input.join('');
+expected = 'the cat ate the rat';
+assertEqual(actual, expected, desc);
+
+desc = 'multiple words different lengths';
+input = 'yummy is cake bundt chocolate'.split('');
+reverseWords(input);
+actual = input.join('');
+expected = 'chocolate bundt cake is yummy';
+assertEqual(actual, expected, desc);
+
+desc = 'empty string';
+input = ''.split('');
+reverseWords(input);
+actual = input.join('');
+expected = '';
+assertEqual(actual, expected, desc);
+
+function assertEqual(a, b, desc) {
+  if (a === b) {
+    console.log(`${desc} ... PASS`);
+  } else {
+    console.log(`${desc} ... FAIL: ${a} != ${b}`);
+  }
 }
