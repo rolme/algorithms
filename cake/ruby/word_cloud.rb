@@ -1,3 +1,18 @@
+# class WordCloudData
+#   attr_reader :words_to_counts
+#
+#   def initialize(input_string)
+#     # Count the frequency of each word
+#     @words_to_counts = {}
+#     words = input_string.gsub(/[\p{P}&&[^'-.]]/, '').split(/\.+|\s/)
+#     words.each do |word|
+#       next if word !~ /[a-z]/i
+#
+#       @words_to_counts[word] ||= 0
+#       @words_to_counts[word] += 1
+#     end
+#   end
+# end
 class WordCloudData
   attr_reader :words_to_counts
 
